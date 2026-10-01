@@ -1,0 +1,124 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.100",
+        "report": "2.0.100",
+        "page": "1.3.100"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom27498231411492935.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.100",
+        "report": "2.0.100",
+        "page": "1.3.100"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "2186a0981825a896807b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Base cases"
+              }
+            },
+            "Property": "PeriodoNH"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "CAPA8634047748750714.png",
+          "path": "CAPA8634047748750714.png",
+          "type": "Image"
+        },
+        {
+          "name": "Custom27498231411492935.json",
+          "path": "Custom27498231411492935.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "NEW_Fundo_DASH_NH_comparativo17800257387644358.png",
+          "path": "NEW_Fundo_DASH_NH_comparativo17800257387644358.png",
+          "type": "Image"
+        },
+        {
+          "name": "NEW_Fundo_DASH_NH_longo5372514093493089.png",
+          "path": "NEW_Fundo_DASH_NH_longo5372514093493089.png",
+          "type": "Image"
+        },
+        {
+          "name": "NEW_Fundo_DASH_OPS_darker5436915223978741.png",
+          "path": "NEW_Fundo_DASH_OPS_darker5436915223978741.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true,
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  }
+}

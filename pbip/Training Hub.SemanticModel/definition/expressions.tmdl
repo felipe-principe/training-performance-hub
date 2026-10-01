@@ -1,0 +1,9 @@
+/// Pasta dos 3 CSVs da base fictícia (Casos, QA e New_Hires). Trocar aqui move o projeto
+/// inteiro de máquina sem editar as consultas.
+expression Caminho_Base = "C:\Projetos\training-performance-hub\dados" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 5b8f3c2e-7a41-4d6b-9e0f-2c1d8a6b4f73
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

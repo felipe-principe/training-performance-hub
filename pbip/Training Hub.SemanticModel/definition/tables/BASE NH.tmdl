@@ -1,0 +1,153 @@
+table 'BASE NH'
+	lineageTag: 1011b55b-5470-4304-87b0-415c35905934
+
+	column 'Full Name'
+		dataType: string
+		lineageTag: be8ab8df-7265-4803-a020-9a8d145cf375
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Email'
+		dataType: string
+		lineageTag: c6cbf72f-6796-45b3-8a91-a7fb5c3d6cc8
+		summarizeBy: none
+		sourceColumn: User Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lider Educador'
+		dataType: string
+		lineageTag: 7139ffd7-5a32-4a3e-8f73-d83aecf9bb76
+		summarizeBy: none
+		sourceColumn: Lider Educador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 0992f070-4945-41f8-a351-aa228cfb334d
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column TURMA
+		dataType: int64
+		formatString: 0
+		lineageTag: 5760e7fe-22f0-4ea4-800b-efec5cb62742
+		summarizeBy: sum
+		sourceColumn: TURMA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inicio TRN'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c075f9c3-9407-4fd1-83f7-52e140f2dce1
+		summarizeBy: none
+		sourceColumn: Inicio TRN
+
+		variation Variation
+			isDefault
+			relationship: 55eaf141-ac75-4076-aab1-ebf56b00172a
+			defaultHierarchy: LocalDateTable_7c3fe62b-e44a-49d4-966d-a84286f47936.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Inicio Nesting'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3b96dbe5-151e-4e64-9744-5c36e619e1f8
+		summarizeBy: none
+		sourceColumn: Inicio Nesting
+
+		variation Variation
+			isDefault
+			relationship: 6575e6ec-47ce-4ba3-8723-b530ad8e53a6
+			defaultHierarchy: LocalDateTable_ac8c990d-3ee3-4640-8745-d3262d85ddd3.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'GO LIVE'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 685c7bc4-f822-4d33-87ea-75ff4f795f0e
+		summarizeBy: none
+		sourceColumn: GO LIVE
+
+		variation Variation
+			isDefault
+			relationship: 4773f58a-f66d-4b16-bec5-8555d39a7b00
+			defaultHierarchy: LocalDateTable_72755fa1-77dc-46b3-b4b4-4fb9521042f7.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// T-SAT - Trainee satisfaction score reported for the training class.
+	column T-SAT
+		dataType: int64
+		formatString: 0
+		lineageTag: 083cfb9f-23bd-48bc-b15f-7eef013eff3c
+		summarizeBy: sum
+		sourceColumn: T-SAT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FINAL TEST - Final knowledge assessment score for the training class (0-1 scale).
+	column 'FINAL TEST'
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 83547be2-9fc5-4bcd-98d9-c603fac239f8
+		summarizeBy: sum
+		sourceColumn: FINAL TEST
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 7a3b6600-5169-42ce-8c63-cc4356d11562
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inicio Produto'
+		dataType: string
+		lineageTag: c6caf9ef-4895-4219-ae15-021e88450571
+		summarizeBy: none
+		sourceColumn: Inicio Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name New'
+		dataType: string
+		lineageTag: 6e9e8cbd-2216-44ca-80de-b8f6f6570f4f
+		summarizeBy: none
+		sourceColumn: Name New
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'BASE NH' = m
+		mode: import
+		source =
+				// Base fictícia gerada para portfólio: mesmo formato das curvas da operação, outros números.
+				// Nomes e e-mails já chegam fictícios; nenhum dado real passa por esta consulta.
+				let
+				    Fonte = Csv.Document(File.Contents(Caminho_Base & "\New_Hires.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"Full Name", type text}, {"User Email", type text}, {"Lider Educador", type text}, {"Ano", Int64.Type}, {"TURMA", Int64.Type}, {"Inicio TRN", type date}, {"Inicio Produto", type text}, {"Inicio Nesting", type date}, {"GO LIVE", type date}, {"T-SAT", Int64.Type}, {"FINAL TEST", type number}, {"Name", type text}, {"Name New", type text}}, "en-US")
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,105 @@
+{
+  "name": "Custom",
+  "textClasses": {
+    "label": {
+      "color": "#FFFFFF"
+    },
+    "callout": {
+      "color": "#FFFFFF"
+    },
+    "title": {
+      "color": "#FFFFFF"
+    },
+    "header": {
+      "color": "#FFFFFF"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "transparency": 100
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "visualHeader": [
+          {
+            "foreground": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 100
+          }
+        ],
+        "visualTooltip": [
+          {
+            "themedTitleFontColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "themedValueFontColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "actionFontColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "visualHeaderTooltip": [
+          {
+            "themedTitleFontColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 100
+          }
+        ],
+        "outspace": [
+          {
+            "transparency": 100
+          }
+        ]
+      }
+    }
+  },
+  "foreground": "#FFFFFF",
+  "foregroundNeutralSecondary": "#FFFFFF",
+  "backgroundLight": "#FFFFFF",
+  "foregroundNeutralTertiary": "#FFFFFF",
+  "backgroundNeutral": "#FFFFFF",
+  "dataColors": [
+    "#118DFF",
+    "#8130F3",
+    "#E66C37",
+    "#6B007B",
+    "#E044A7",
+    "#744EC2",
+    "#D9B300",
+    "#D64550"
+  ]
+}

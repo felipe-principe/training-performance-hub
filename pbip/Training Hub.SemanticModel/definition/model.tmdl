@@ -1,0 +1,30 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Base cases","BASE NH","Base QA","Caminho_Base"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table 'Base cases'
+ref table DateTableTemplate_e6a5af77-aeb1-4b96-a15c-35c6e44230ef
+ref table LocalDateTable_fee6b985-3e63-4a0f-a59a-cfd7cc8d93c3
+ref table LocalDateTable_a2ba9033-72e3-4d27-9c2a-2b374c16f6ea
+ref table LocalDateTable_1b32c843-4e5e-4e92-b28a-53fbb2e73b96
+ref table 'Top 6 Attribution'
+ref table 'BASE NH'
+ref table LocalDateTable_7c3fe62b-e44a-49d4-966d-a84286f47936
+ref table LocalDateTable_ac8c990d-3ee3-4640-8745-d3262d85ddd3
+ref table LocalDateTable_72755fa1-77dc-46b3-b4b4-4fb9521042f7
+ref table 'Base QA'
+ref table LocalDateTable_56f68239-cbf0-4840-a20f-b4cf98d53af1
+ref table LocalDateTable_c0e84b4f-781b-430e-96e7-c431d8c113bd
+
+ref cultureInfo pt-BR
+

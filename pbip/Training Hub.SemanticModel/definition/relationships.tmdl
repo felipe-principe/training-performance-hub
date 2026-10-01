@@ -1,0 +1,59 @@
+relationship 8ba684f5-272c-46f5-939e-2fa543cd9e90
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Base cases'.'Date/Time Opened'
+	toColumn: LocalDateTable_fee6b985-3e63-4a0f-a59a-cfd7cc8d93c3.Date
+
+relationship 3a859cc2-c737-42d9-8658-db153ae8a9d8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Base cases'.'Last Modified Date'
+	toColumn: LocalDateTable_a2ba9033-72e3-4d27-9c2a-2b374c16f6ea.Date
+
+relationship 2721c549-834f-4191-be30-aa456cc5f22b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Base cases'.Date
+	toColumn: LocalDateTable_1b32c843-4e5e-4e92-b28a-53fbb2e73b96.Date
+
+relationship e2c9ef34-b05f-0fb5-c368-abd97a7e954a
+	fromColumn: 'Base cases'.Category
+	toColumn: 'Top 6 Attribution'.Category
+
+relationship 55eaf141-ac75-4076-aab1-ebf56b00172a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'BASE NH'.'Inicio TRN'
+	toColumn: LocalDateTable_7c3fe62b-e44a-49d4-966d-a84286f47936.Date
+
+relationship 6575e6ec-47ce-4ba3-8723-b530ad8e53a6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'BASE NH'.'Inicio Nesting'
+	toColumn: LocalDateTable_ac8c990d-3ee3-4640-8745-d3262d85ddd3.Date
+
+relationship 4773f58a-f66d-4b16-bec5-8555d39a7b00
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'BASE NH'.'GO LIVE'
+	toColumn: LocalDateTable_72755fa1-77dc-46b3-b4b4-4fb9521042f7.Date
+
+relationship 3062ce27-5ad1-4666-c7c3-43d1fdf2963d
+	fromColumn: 'Base cases'.'Case Owner Email'
+	toColumn: 'BASE NH'.'User Email'
+
+relationship d8037e72-075c-4444-846b-0c164cf2e659
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Base QA'.'Created Date/Time'
+	toColumn: LocalDateTable_56f68239-cbf0-4840-a20f-b4cf98d53af1.Date
+
+relationship 522ca112-cfae-42f8-be81-53f908a5242c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Base QA'.'Date QC'
+	toColumn: LocalDateTable_c0e84b4f-781b-430e-96e7-c431d8c113bd.Date
+
+relationship 5f56eb93-0559-a104-3cd4-aadd76f950ec
+	isActive: false
+	fromColumn: 'Base QA'.'Reviewed Agent Email'
+	toColumn: 'BASE NH'.'User Email'
+
+relationship b557331c-a8c7-e317-c3c5-7d3e078d56bc
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Base QA'.Case
+	toColumn: 'Base cases'.'Case Number'
+

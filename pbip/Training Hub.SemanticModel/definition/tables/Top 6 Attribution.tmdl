@@ -1,0 +1,24 @@
+table 'Top 6 Attribution'
+	lineageTag: 8180542e-f694-499d-9ecb-7280cab714cc
+
+	column Category
+		lineageTag: 196171dd-e379-4871-b2a9-76935f13392b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Base cases[Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total casos TCD' = CALCULATE(COUNT('Base cases'[Category]),TOPN(7,ALL('Base cases'[Category])))
+		formatString: 0
+		lineageTag: 88401177-5616-4d6b-8b04-cd85337b7035
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Top 6 Attribution' = calculated
+		mode: import
+		source = TOPN(6,ALL('Base cases'[Category]),[Total Cases])
+
+	annotation PBI_Id = 6bf792ac13a548ef8424ff7c4e64534d
+

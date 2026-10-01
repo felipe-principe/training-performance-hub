@@ -1,0 +1,185 @@
+table 'Base QA'
+	lineageTag: 9e5777a4-3c5e-4ea3-bad6-f062b3730031
+
+	/// Total QC - Total number of quality assurance evaluations performed.
+	measure 'Total QC' = COUNT('Base QA'[Case])
+		formatString: 0
+		displayFolder: 02 Qualidade
+		lineageTag: b4385b0d-8675-45ae-92a1-23ee4d64575e
+
+	column 'Created Date/Time'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 10855938-a28f-4355-897e-765f6dd40aef
+		summarizeBy: none
+		sourceColumn: Created Date/Time
+
+		variation Variation
+			isDefault
+			relationship: d8037e72-075c-4444-846b-0c164cf2e659
+			defaultHierarchy: LocalDateTable_56f68239-cbf0-4840-a20f-b4cf98d53af1.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Case Owner Role'
+		dataType: string
+		lineageTag: 6838bf0c-b269-44c8-b207-31f86bb1fd5b
+		summarizeBy: none
+		sourceColumn: Case Owner Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'QC Assessment: QC Assessment Name'
+		dataType: string
+		lineageTag: d84007d9-0a54-403f-9f78-8923b46dde2f
+		summarizeBy: none
+		sourceColumn: QC Assessment: QC Assessment Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Reviewed Agent'
+		dataType: string
+		lineageTag: ee346fc1-f13c-4411-ae1f-712a1d3214ca
+		summarizeBy: none
+		sourceColumn: Reviewed Agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Reviewed Agent Email'
+		dataType: string
+		lineageTag: 713b9e53-c217-47b7-9086-85200e1431c7
+		summarizeBy: none
+		sourceColumn: Reviewed Agent Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Manager (current)'
+		dataType: string
+		lineageTag: cd89baaf-07f9-4181-837b-bb876dc0bdd4
+		summarizeBy: none
+		sourceColumn: Manager (current)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'QC Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3111f4e5-987a-49c5-878e-98052462c73f
+		summarizeBy: sum
+		sourceColumn: QC Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date QC'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e69e8ab4-9386-4642-88ff-4609bbd4b387
+		summarizeBy: none
+		sourceColumn: Date QC
+
+		variation Variation
+			isDefault
+			relationship: 522ca112-cfae-42f8-be81-53f908a5242c
+			defaultHierarchy: LocalDateTable_c0e84b4f-781b-430e-96e7-c431d8c113bd.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '% QC Score'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c4082c81-99f1-47f1-b4c6-f91ce7702077
+		summarizeBy: sum
+		sourceColumn: % QC Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PeriodoNH QC' = ```
+			
+			VAR Agente = 'Base QA'[Reviewed Agent Email]
+			VAR DataAtendimento = 'Base QA'[Date QC]
+			
+			VAR DataInicioNesting =
+			    CALCULATE(
+			        MAX('BASE NH'[Inicio Nesting]),
+			        FILTER('BASE NH', 'BASE NH'[User Email] = Agente)
+			    )
+			
+			VAR DataGoLive =
+			    CALCULATE(
+			        MAX('BASE NH'[GO LIVE]),
+			        FILTER('BASE NH', 'BASE NH'[User Email] = Agente)
+			    )
+			
+			VAR DiasPosGoLive =
+			    IF(
+			        NOT ISBLANK(DataGoLive),
+			        DATEDIFF(DataGoLive, DataAtendimento, DAY)
+			    )
+			
+			RETURN
+			    IF(
+			        ISBLANK(DataGoLive),
+			        BLANK(),  -- Se o agente não estiver na base NH, retorna em branco
+			        SWITCH(
+			            TRUE(),
+			            DataAtendimento >= DataInicioNesting && DataAtendimento < DataGoLive, "Nesting",
+			            DiasPosGoLive <= 30, "30",
+			            DiasPosGoLive <= 60, "60",
+			            DiasPosGoLive <= 90, "90",
+			            "90+"
+			        )
+			    )
+			
+			```
+		dataType: string
+		lineageTag: edf15424-b832-416e-b375-b088ccc5d4d1
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case
+		dataType: int64
+		formatString: 0
+		lineageTag: 54f12381-a2f0-4de4-bf56-70d71688dace
+		summarizeBy: none
+		sourceColumn: Case
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OrdemPeriodoNH QC' =
+			
+			SWITCH(
+			    'Base QA'[PeriodoNH QC],
+			    "Nesting", 0,
+			    "30", 1,
+			    "60", 2,
+			    "90", 3,
+			    "90+", 4,
+			    "", 99
+			)
+		formatString: 0
+		lineageTag: 378ae428-d5e9-415a-be81-32969f0e01df
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Base QA' = m
+		mode: import
+		source =
+				// Base fictícia gerada para portfólio: mesmo formato das curvas da operação, outros números.
+				// Nomes e e-mails já chegam fictícios; nenhum dado real passa por esta consulta.
+				let
+				    Fonte = Csv.Document(File.Contents(Caminho_Base & "\QA.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"Created Date/Time", type datetime}, {"Case Owner Role", type text}, {"QC Assessment: QC Assessment Name", type text}, {"QC Score", Int64.Type}, {"Date QC", type date}, {"% QC Score", type number}, {"Case", Int64.Type}, {"Reviewed Agent", type text}, {"Reviewed Agent Email", type text}, {"Manager (current)", type text}}, "en-US")
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
